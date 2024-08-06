@@ -101,7 +101,9 @@ class userController extends Controller
         $user->tentatives = 0; 
          // Réinitialiser la date d'expiration
         $user->tentatives_expires = Carbon::now();
-        
+        // Sauvegarder les modifications de l'utilisateur
+        $user->save();
+
         // Authentification réussie, génération d'un jeton JWT
         $token = $user->createToken("user_token")->plainTextToken;
       
