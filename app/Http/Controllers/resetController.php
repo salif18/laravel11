@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class ResetController extends Controller
 {
     // Durée de blocage en secondes (1 heure)
-    const BLOCK_DURATION = 3600; 
+    const BLOCK_DURATION = 5 * 60 * 1000; 
     // Nombre maximal de tentatives
     const TENTATIVES_MAX = 3;
 
@@ -49,7 +49,7 @@ class ResetController extends Controller
 
             // Si le nombre maximal de tentatives est atteint, définir la date d'expiration du blocage
             if ($user->tentatives >= self::TENTATIVES_MAX) {
-                $user->tentatives_expires = Carbon::now()->addSeconds(self::BLOCK_DURATION);
+                $user->tentatives_expires = Carbon::now()->addMilliseconds(self::BLOCK_DURATION);
             }
 
             // Sauvegarder les modifications de l'utilisateur
